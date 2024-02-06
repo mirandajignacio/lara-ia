@@ -35,7 +35,7 @@ const initializeInternalization = ({ leng }: Props) => {
             "nps-low": "Nunca lo haría",
             "nps-high": "Extremadamente probable",
             "nps-tip":
-              "💡 Tip! Intenta usar el teclado para seleccionar una opción! Presiona 0 para 10.",
+              "💡 Tip! Intentá usar el teclado para seleccionar una opción! Presiona 0 para 10.",
           },
         },
       },
