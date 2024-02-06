@@ -10,4 +10,4 @@ type OpeningControlProps = ControlBaseProps & {
   context?: Context[];
 };
 
-export type { OpeningControlProps };
+export type { OpeningControlProps, Context };

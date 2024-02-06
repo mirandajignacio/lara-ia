@@ -3,14 +3,14 @@ import { FormBuilderContext } from "../context/form-builder-context";
 
 const useFormBuilder = () => {
   const {
-    items,
+    answers,
     addAnswer,
     currentControl,
     initializeControl,
     isControlCompleted,
   } = useContext(FormBuilderContext);
   return {
-    items,
+    answers,
     addAnswer,
     currentControl,
     initializeControl,

@@ -4,6 +4,7 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { useWizard } from "react-use-wizard";
 import { useFormBuilder } from "../hooks/use-form-builder";
 import { t } from "i18next";
+import { useEffect } from "react";
 
 const NavigationButton = styled(Button)`
   height: 56px;
@@ -44,6 +45,22 @@ const Navigation = () => {
   const { isControlCompleted } = useFormBuilder();
   const controlCompleted = isControlCompleted();
   const isLastQuestionControl = activeStep == stepCount - 2;
+
+  useEffect(() => {
+    function handleKeyPress(event: KeyboardEvent) {
+      if (event.key === "Enter") {
+        if (controlCompleted) {
+          nextStep();
+        }
+      }
+    }
+
+    document.addEventListener("keydown", handleKeyPress);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyPress);
+    };
+  }, [controlCompleted, nextStep]);
 
   return isFirstStep || isLastStep ? null : (
     <Container>

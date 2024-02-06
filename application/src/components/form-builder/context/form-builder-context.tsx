@@ -2,7 +2,7 @@ import { useState, createContext } from "react";
 import { ControlProps } from "../controls/types";
 
 type FormBuildContextType = {
-  items: Answer[];
+  answers: Answer[];
   addAnswer: (answer: Answer) => void;
   currentControl: ControlProps | null;
   initializeControl: (control: ControlProps) => void;
@@ -13,10 +13,6 @@ type Answer = {
   uid: string;
   question: string;
   answer: string;
-  "re-question"?: {
-    question: string;
-    answer: string;
-  };
 };
 
 const FormBuilderContext = createContext<FormBuildContextType>({
@@ -24,7 +20,7 @@ const FormBuilderContext = createContext<FormBuildContextType>({
   isControlCompleted: () => false,
   initializeControl: () => {},
   currentControl: null,
-  items: [],
+  answers: [],
 });
 
 type Props = {
@@ -33,14 +29,16 @@ type Props = {
 };
 
 const FormBuilderProvider = ({ children, controls }: Props) => {
-  const [items, setItems] = useState<Answer[]>([]);
+  const [answers, setAnswers] = useState<Answer[]>([]);
   const [currentControl, setCurrenControl] = useState<ControlProps>(
     controls[0]
   );
 
   const isControlCompleted = () => {
     if (currentControl?.required) {
-      const index = items.findIndex((item) => item.uid === currentControl.uid);
+      const index = answers.findIndex(
+        (item) => item.uid === currentControl.uid
+      );
       return index !== -1;
     }
     return true;
@@ -51,20 +49,22 @@ const FormBuilderProvider = ({ children, controls }: Props) => {
   };
 
   const addAnswer = (answer: Answer) => {
-    const index = items.findIndex((item) => item.question === answer.question);
+    const index = answers.findIndex(
+      (item) => item.question === answer.question
+    );
     if (index !== -1) {
-      const newItems = [...items];
-      newItems[index] = answer;
-      setItems(newItems);
+      const newAnswers = [...answers];
+      newAnswers[index] = answer;
+      setAnswers(newAnswers);
       return;
     }
-    setItems([...items, answer]);
+    setAnswers([...answers, answer]);
   };
 
   return (
     <FormBuilderContext.Provider
       value={{
-        items,
+        answers,
         addAnswer,
         initializeControl,
         currentControl,
@@ -77,4 +77,4 @@ const FormBuilderProvider = ({ children, controls }: Props) => {
 };
 
 export { FormBuilderContext, FormBuilderProvider };
-export type { FormBuildContextType };
+export type { FormBuildContextType, Answer };

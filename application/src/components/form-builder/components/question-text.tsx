@@ -22,7 +22,7 @@ const QuestionText = ({ children, required }: Props) => {
                   display={"inline"}
                   color="error"
                 >
-                  *
+                  {` *`}
                 </Typography>
               )}
             </Typography>

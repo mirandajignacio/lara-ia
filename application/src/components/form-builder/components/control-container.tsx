@@ -2,6 +2,7 @@ import { Box, Button, styled } from "@mui/material";
 import { useWizard } from "react-use-wizard";
 import { useFormBuilder } from "../hooks/use-form-builder";
 import { t } from "i18next";
+import { useMutationQuarterCheck } from "../../../api/quarter-check.api";
 
 type Props = {
   children: React.ReactNode;
@@ -28,12 +29,17 @@ const SubmitWrapper = styled(Box)`
 
 const ControlContainer = ({ children }: Props) => {
   const { stepCount, activeStep, nextStep, handleStep } = useWizard();
-  const { items } = useFormBuilder();
+  const { answers } = useFormBuilder();
   const isLastQuestionControl = activeStep == stepCount - 2;
+  const { isPending, isSuccess, mutate } = useMutationQuarterCheck();
 
   handleStep(() => {
     if (isLastQuestionControl) {
-      console.log("submit", items);
+      mutate(answers);
+
+      if (!isPending && isSuccess) {
+        nextStep();
+      }
     }
   });
 

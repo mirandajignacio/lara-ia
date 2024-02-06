@@ -1,6 +1,7 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { LenguageType } from "../common/types";
 import { ControlProps } from "../components/form-builder/controls/types";
+import { Answer } from "../components/form-builder/context/form-builder-context";
 
 type FormBuilderSettings = {
   uid: string;
@@ -20,6 +21,30 @@ export const fetchQuarterCheck = async () => {
   return form;
 };
 
-export const useQuarterCheck = () => {
-  return useQuery({ queryKey: ["groups"], queryFn: fetchQuarterCheck });
+export const saveQuarterCheck = async (data: Answer[]) => {
+  const res = await fetch(
+    "https://lara-ia-backend.vercel.app/api/quarter-check",
+    {
+      method: "POST",
+      body: JSON.stringify(data),
+    }
+  );
+  if (!res.ok) {
+    throw new Error("Network response was not ok");
+  }
+  return res.json();
 };
+
+const useQuarterCheck = () => {
+  return useQuery({ queryKey: ["quarter-check"], queryFn: fetchQuarterCheck });
+};
+
+const useMutationQuarterCheck = () => {
+  const { mutate, data, isPending, isSuccess } = useMutation({
+    mutationFn: saveQuarterCheck,
+  });
+
+  return { mutate, data, isPending, isSuccess };
+};
+
+export { useQuarterCheck, useMutationQuarterCheck };

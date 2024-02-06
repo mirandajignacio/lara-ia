@@ -14,15 +14,15 @@ type Props = {
 const TextControl = ({ control }: Props) => {
   const { question, required, uid } = control;
   const [answer, setAnswer] = useState("");
-  const { initializeControl, items, addAnswer } = useFormBuilder();
+  const { initializeControl, answers, addAnswer } = useFormBuilder();
 
   useEffect(() => {
     initializeControl(control);
-    const index = items.findIndex((item) => item.uid === uid);
+    const index = answers.findIndex((a) => a.uid === uid);
     if (index !== -1) {
-      setAnswer(items[index].answer);
+      setAnswer(answers[index].answer);
     }
-  }, [control, initializeControl, items, uid]);
+  }, [control, initializeControl, answers, uid]);
 
   const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
     setAnswer(e.target.value);

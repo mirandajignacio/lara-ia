@@ -121,7 +121,14 @@ const mock = {
 };
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  res.status(200).json({
-    ...mock,
-  });
+  if (req.method === "POST") {
+    console.log(req.body);
+    return res.status(200).json({
+      message: "Success",
+    });
+  } else if (req.method === "GET") {
+    return res.status(200).json({
+      ...mock,
+    });
+  }
 }

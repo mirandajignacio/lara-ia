@@ -23,7 +23,7 @@ const NPSControl = ({ control }: Props) => {
   const { question, uid, required } = control;
   const [selected, setSelected] = useState<null | string>(null);
   const { nextStep } = useWizard();
-  const { addAnswer, items, initializeControl } = useFormBuilder();
+  const { addAnswer, answers, initializeControl } = useFormBuilder();
   const theme = useTheme();
   const lessThanLarge = useMediaQuery(theme.breakpoints.down("lg"));
   const subControl =
@@ -31,11 +31,11 @@ const NPSControl = ({ control }: Props) => {
 
   useEffect(() => {
     initializeControl(control);
-    const index = items.findIndex((item) => item.uid === uid);
+    const index = answers.findIndex((a) => a.uid === uid);
     if (index !== -1) {
-      setSelected(items[index].answer.toString());
+      setSelected(answers[index].answer.toString());
     }
-  }, [control, initializeControl, items, uid]);
+  }, [control, initializeControl, answers, uid]);
 
   const handleOnClickOption = (value: string) => {
     setSelected(value);

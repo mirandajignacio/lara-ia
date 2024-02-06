@@ -17,17 +17,17 @@ const OptionsControl = ({ control }: Props) => {
   const { question, uid, options, required } = control;
   const [selected, setSelected] = useState<null | string>(null);
   const { nextStep } = useWizard();
-  const { addAnswer, items, initializeControl } = useFormBuilder();
+  const { addAnswer, answers, initializeControl } = useFormBuilder();
   const subControl =
     "sub-control" in control ? control["sub-control"] : undefined;
 
   useEffect(() => {
     initializeControl(control);
-    const index = items.findIndex((item) => item.uid === uid);
+    const index = answers.findIndex((a) => a.uid === uid);
     if (index !== -1) {
-      setSelected(items[index].answer);
+      setSelected(answers[index].answer);
     }
-  }, [control, initializeControl, items, uid]);
+  }, [control, initializeControl, answers, uid]);
 
   const handleOnClickOption = (value: string) => {
     setSelected(value);
