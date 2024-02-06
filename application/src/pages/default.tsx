@@ -6,7 +6,9 @@ import { useQuarterCheck } from "../api/quarter-check.api";
 const Container = styled(Box)`
   display: flex;
   width: 100dvw;
+  max-width: 100dvw;
   height: 100dvh;
+  overflow-x: hidden;
   align-items: center;
   justify-content: center;
   flex-direction: column;

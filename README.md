@@ -23,6 +23,9 @@ yarn dev
 
 **Aclaración**: Hice que el opening text y closing text sean un control también, ya que limitaba a que haya solo un step de presentación o cierre de flujo. Considero que puede existir el caso donde puede haber mas de un step de presentación o cierre. 
 
+### Keypress Support
+- Nps Control
+
 ### Esquema Api
 
 Endpoints

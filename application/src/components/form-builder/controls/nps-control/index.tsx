@@ -1,4 +1,4 @@
-import { Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Typography, styled } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
 import { useWizard } from "react-use-wizard";
 
@@ -22,13 +22,17 @@ type Props = {
   control: ControlProps;
 };
 
+const TypographyStyled = styled(Typography)`
+  ${({ theme }) => theme.breakpoints.down("lg")} {
+    font-size: ${({ theme }) => theme.typography.body1};
+  }
+`;
+
 const NPSControl = ({ control }: Props) => {
   const { question, uid, required } = control;
   const [selected, setSelected] = useState<null | string>(null);
   const { nextStep } = useWizard();
   const { addAnswer, answers, initializeControl } = useFormBuilder();
-  const theme = useTheme();
-  const lessThanLarge = useMediaQuery(theme.breakpoints.down("lg"));
   const subControl =
     "sub-control" in control ? control["sub-control"] : undefined;
 
@@ -85,12 +89,8 @@ const NPSControl = ({ control }: Props) => {
             })}
           </ButtonsWrapper>
           <InformationWrapper>
-            <Typography variant={lessThanLarge ? "body1" : "h5"}>
-              {t("nps-low")}
-            </Typography>
-            <Typography variant={lessThanLarge ? "body1" : "h5"}>
-              {t("nps-high")}
-            </Typography>
+            <TypographyStyled variant="h5">{t("nps-low")}</TypographyStyled>
+            <TypographyStyled variant="h5">{t("nps-high")}</TypographyStyled>
           </InformationWrapper>
         </OptionsWrapper>
         {subControl &&

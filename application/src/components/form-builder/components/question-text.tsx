@@ -1,4 +1,4 @@
-import { Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Typography, styled } from "@mui/material";
 import Markdown from "react-markdown";
 
 type Props = {
@@ -6,26 +6,25 @@ type Props = {
   required?: boolean;
 };
 
+const TypographyStyled = styled(Typography)<{ required?: boolean }>`
+  ${({ theme }) => theme.breakpoints.down("lg")} {
+    font-size: ${({ theme }) => theme.typography.h5};
+  }
+  :after {
+    content: ${({ required }) => (required ? "' *'" : "''")};
+    color: ${({ theme }) => theme.palette.error.main};
+  }
+`;
+
 const QuestionText = ({ children, required }: Props) => {
-  const theme = useTheme();
-  const lessThanLarge = useMediaQuery(theme.breakpoints.down("lg"));
   return (
     <Markdown
       components={{
         h2: ({ children }) => {
           return (
-            <Typography variant={lessThanLarge ? "h5" : "h2"}>
+            <TypographyStyled variant="h2" required={required}>
               {children}
-              {required && (
-                <Typography
-                  variant={lessThanLarge ? "h5" : "h2"}
-                  display={"inline"}
-                  color="error"
-                >
-                  {` *`}
-                </Typography>
-              )}
-            </Typography>
+            </TypographyStyled>
           );
         },
       }}

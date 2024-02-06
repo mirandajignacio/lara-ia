@@ -1,5 +1,3 @@
-import { Typography, useMediaQuery, useTheme } from "@mui/material";
-
 import { useEffect, useState } from "react";
 
 import { useWizard } from "react-use-wizard";
@@ -19,8 +17,7 @@ const MoodControl = ({ control }: Props) => {
   const [selected, setSelected] = useState<MoodOption | null>(null);
   const { nextStep } = useWizard();
   const { addAnswer, answers, initializeControl } = useFormBuilder();
-  const theme = useTheme();
-  const lessThanLarge = useMediaQuery(theme.breakpoints.down("lg"));
+
   const subControl =
     "sub-control" in control ? control["sub-control"] : undefined;
 
@@ -62,9 +59,7 @@ const MoodControl = ({ control }: Props) => {
                 variant={variant}
                 selected={isOptionSelected}
               >
-                <Typography variant={lessThanLarge ? "h2" : "h1"}>
-                  {option.label}
-                </Typography>
+                {option.label}
               </MoodButton>
             );
           })}

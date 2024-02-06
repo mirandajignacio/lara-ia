@@ -10,8 +10,10 @@ const MoodButtonsWrapper = styled(Box)`
 
 const MoodButton = styled(Button)<{ selected?: boolean }>`
   height: 104px;
-  width: 99px;
+  width: fit-content;
+  font-size: 56px;
   ${({ theme }) => theme.breakpoints.down("lg")} {
+    font-size: 32px;
     width: 60px;
     height: 60px;
   }
