@@ -1,10 +1,13 @@
-import { Box, Button, Modal, Typography } from "@mui/material";
+import { Box, Button, Modal, Typography, styled } from "@mui/material";
 import { t } from "i18next";
 import { useState } from "react";
 import Markdown from "react-markdown";
 import { BoxModal } from "./styles";
 import { Context } from "./types";
 
+const TransparentButton = styled(Button)`
+  background-color: transparent;
+`;
 const ContextButton = ({ label, text, uid }: Context) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -12,9 +15,14 @@ const ContextButton = ({ label, text, uid }: Context) => {
 
   return (
     <>
-      <Button variant="outlined" key={uid} size="medium" onClick={handleOpen}>
+      <TransparentButton
+        variant="outlined"
+        key={uid}
+        size="medium"
+        onClick={handleOpen}
+      >
         {label}
-      </Button>
+      </TransparentButton>
       <Modal
         open={open}
         onClose={handleClose}

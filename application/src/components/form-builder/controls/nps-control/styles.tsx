@@ -1,10 +1,11 @@
-import { Box, Button, styled } from "@mui/material";
+import { Box, Button, Typography, styled } from "@mui/material";
 
 const NPSButton = styled(Button)<{ selected?: boolean }>`
   font-size: 36px;
   width: 70px;
   height: 70px;
   padding: 0;
+  font-weight: 400;
   ${({ theme, selected }) =>
     !selected && `color: ${theme.palette.text.primary};`}
   ${({ theme }) => theme.breakpoints.down("lg")} {
@@ -51,5 +52,16 @@ const ButtonsWrapper = styled(Box)`
     gap: 5px;
   }
 `;
+const TypographyStyled = styled(Typography)`
+  ${({ theme }) => theme.breakpoints.down("lg")} {
+    font-size: ${({ theme }) => theme.typography.body1};
+  }
+`;
 
-export { NPSButton, InformationWrapper, OptionsWrapper, ButtonsWrapper };
+export {
+  NPSButton,
+  InformationWrapper,
+  OptionsWrapper,
+  ButtonsWrapper,
+  TypographyStyled,
+};

@@ -1,5 +1,5 @@
 import { Wizard } from "react-use-wizard";
-
+import { Toaster } from "react-hot-toast";
 import { Navigation } from "./components/navigation";
 import { AnimatedStep } from "./components/animated-step";
 import { useRef } from "react";
@@ -15,17 +15,20 @@ const FormBuilder = ({ controls }: Props) => {
   const previousStep = useRef<number>(0);
 
   return (
-    <FormBuilderProvider controls={controls}>
-      <Wizard startIndex={0} footer={<Navigation />}>
-        {controls.map((control, index) => {
-          return (
-            <AnimatedStep key={index} previousStep={previousStep}>
-              {renderControl(control)}
-            </AnimatedStep>
-          );
-        })}
-      </Wizard>
-    </FormBuilderProvider>
+    <>
+      <FormBuilderProvider controls={controls}>
+        <Wizard startIndex={0} footer={<Navigation />}>
+          {controls.map((control, index) => {
+            return (
+              <AnimatedStep key={index} previousStep={previousStep}>
+                {renderControl(control)}
+              </AnimatedStep>
+            );
+          })}
+        </Wizard>
+      </FormBuilderProvider>
+      <Toaster position="bottom-center" />
+    </>
   );
 };
 

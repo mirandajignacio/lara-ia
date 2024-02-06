@@ -14,24 +14,28 @@ const initializeInternalization = ({ leng }: Props) => {
       resources: {
         en: {
           translation: {
-            start: "Start",
+            start: "START",
             "next-step": "Next",
             "previous-step": "Previous",
             "send-responses": "Send responses",
             close: "Close",
             "nps-low": "Never would",
             "nps-high": "Extremely likely",
+            "nps-tip":
+              "💡 Tip! Try using the keyboard to select an option! Press 0 for 10.",
           },
         },
         es: {
           translation: {
-            start: "Comenzar",
+            start: "COMENZAR",
             "next-step": "Siguiente",
-            "previous-step": "Anterior",
+            "previous-step": "Previa",
             "send-responses": "Enviar respuestas",
             close: "Cerrar",
             "nps-low": "Nunca lo haría",
             "nps-high": "Extremadamente probable",
+            "nps-tip":
+              "💡 Tip! Intenta usar el teclado para seleccionar una opción! Presiona 0 para 10.",
           },
         },
       },

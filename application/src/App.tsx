@@ -5,6 +5,7 @@ import { theme } from "./theme";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 const queryClient = new QueryClient();
 import "animate.css";
+import { Toast } from "./components/toast";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <QueryClientProvider client={queryClient}>
           <Default />
         </QueryClientProvider>
+        <Toast />
       </ThemeProvider>
     </>
   );

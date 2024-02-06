@@ -1,4 +1,4 @@
-import { Box, styled } from "@mui/material";
+import { Box, Button, styled } from "@mui/material";
 
 const BoxModal = styled(Box)`
   position: absolute;
@@ -28,4 +28,10 @@ const ContextButtonWrapper = styled(Box)`
   }
 `;
 
-export { ContextButtonWrapper, BoxModal };
+const StartButton = styled(Button)`
+  margin-bottom: 30px;
+  font-weight: 600;
+  width: fit-content;
+`;
+
+export { ContextButtonWrapper, BoxModal, StartButton };

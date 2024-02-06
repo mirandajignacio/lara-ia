@@ -7,12 +7,12 @@ type Props = {
 };
 
 const TypographyStyled = styled(Typography)<{ required?: boolean }>`
-  ${({ theme }) => theme.breakpoints.down("lg")} {
-    font-size: ${({ theme }) => theme.typography.h5};
-  }
   :after {
     content: ${({ required }) => (required ? "' *'" : "''")};
     color: ${({ theme }) => theme.palette.error.main};
+  }
+  ${({ theme }) => theme.breakpoints.down("lg")} {
+    font-size: ${({ theme }) => theme.typography.h5};
   }
 `;
 

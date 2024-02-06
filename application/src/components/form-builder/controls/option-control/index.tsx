@@ -36,9 +36,7 @@ const OptionsControl = ({ control }: Props) => {
     const mood = getMood(value, options);
 
     if (subControl === undefined || mood !== subControl.conditional) {
-      setTimeout(() => {
-        nextStep();
-      }, 500);
+      nextStep();
     }
   };
 

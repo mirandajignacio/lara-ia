@@ -1,4 +1,4 @@
-import { Box, Button, styled } from "@mui/material";
+import { Box } from "@mui/material";
 import { useWizard } from "react-use-wizard";
 import { useTranslation } from "react-i18next";
 import { OpeningControlProps } from "./types";
@@ -6,16 +6,11 @@ import { ControlContainer } from "../../components/control-container";
 
 import { ContextButton } from "./context-button";
 import { OpeningClosingText } from "../../components/opening-closing-text";
-import { ContextButtonWrapper } from "./styles";
+import { ContextButtonWrapper, StartButton } from "./styles";
 
 type Props = {
   control: OpeningControlProps;
 };
-
-const StartButton = styled(Button)`
-  margin-bottom: 30px;
-  width: fit-content;
-`;
 
 const OpeningControl = ({ control }: Props) => {
   const { nextStep } = useWizard();

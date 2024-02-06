@@ -7,6 +7,7 @@ import { t } from "i18next";
 import { useEffect, useState } from "react";
 
 const NavigationButton = styled(Button)`
+  gap: 8px;
   height: 56px;
   padding: 15px;
   span {

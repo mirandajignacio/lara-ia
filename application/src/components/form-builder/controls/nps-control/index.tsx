@@ -1,4 +1,3 @@
-import { Typography, styled } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
 import { useWizard } from "react-use-wizard";
 
@@ -13,26 +12,24 @@ import {
   ButtonsWrapper,
   NPSButton,
   InformationWrapper,
+  TypographyStyled,
 } from "./styles";
 import { SubControl } from "../../components/sub-control";
 import { renderControl } from "../../utils/render-control";
 import { t } from "i18next";
+import { useGlobalStore } from "../../../../store/global-store";
 
 type Props = {
   control: ControlProps;
 };
-
-const TypographyStyled = styled(Typography)`
-  ${({ theme }) => theme.breakpoints.down("lg")} {
-    font-size: ${({ theme }) => theme.typography.body1};
-  }
-`;
 
 const NPSControl = ({ control }: Props) => {
   const { question, uid, required } = control;
   const [selected, setSelected] = useState<null | string>(null);
   const { nextStep } = useWizard();
   const { addAnswer, answers, initializeControl } = useFormBuilder();
+  const { showToast } = useGlobalStore();
+
   const subControl =
     "sub-control" in control ? control["sub-control"] : undefined;
 
@@ -42,9 +39,7 @@ const NPSControl = ({ control }: Props) => {
       addAnswer({ uid, question, answer: value.toString() });
       const mood = getMood(Number(value));
       if (subControl === undefined || mood !== subControl.conditional) {
-        setTimeout(() => {
-          nextStep();
-        }, 500);
+        nextStep();
       }
     },
     [addAnswer, nextStep, question, subControl, uid]
@@ -52,6 +47,7 @@ const NPSControl = ({ control }: Props) => {
 
   useEffect(() => {
     initializeControl(control);
+    showToast(t("nps-tip"));
     const index = answers.findIndex((a) => a.uid === uid);
     if (index !== -1) {
       setSelected(answers[index].answer.toString());
@@ -65,7 +61,7 @@ const NPSControl = ({ control }: Props) => {
     return () => {
       removeEventListener("keypress", keyPress);
     };
-  }, [control, initializeControl, answers, uid, selectOption]);
+  }, [control, initializeControl, answers, uid, selectOption, showToast]);
 
   return (
     <ControlContainer>

@@ -68,7 +68,8 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: "8px",
-          textDecoration: "none",
+          textTransform: "unset",
+          fontWeight: "600",
         },
         sizeSmall: {
           padding: "6px 16px",
