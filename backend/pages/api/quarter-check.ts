@@ -49,7 +49,7 @@ const mock = {
       question: `## ¿Cómo fue tu experiencia en Tesla el último mes?`,
       required: true,
       "sub-control": {
-        conditional: "neutral",
+        conditional: "negative",
         control: {
           "control-type": "text",
           question: "## ¿Qué fue lo que pasó?",

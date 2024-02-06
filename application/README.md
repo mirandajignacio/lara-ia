@@ -96,3 +96,24 @@ Response
   ],
 }
 ```
+
+```
+url: https://lara-ia-backend.vercel.app/api/quarter-check
+method: POST
+code: 200
+```
+Body
+```json
+{
+  uid: string;
+  question: string;
+  answer: string;
+}[]
+```
+
+#### ControlContainer
+Este Componente lo hice para contener cada control y poder entender por cual es si tiene que mostrar o no el botón de enviar respuestas.
+
+#### useFormBuilder
+El Hook que se conecta al Context del Form.
+la prop currentControl fue algo que tuve que agregar para poder desde el Navigation saber si tengo que habilitar o no el botón de Siguiente.
