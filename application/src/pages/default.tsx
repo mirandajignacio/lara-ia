@@ -28,8 +28,8 @@ const Default = () => {
   return (
     <Box
       display="flex"
-      width="100vw"
-      height="100vh"
+      width="100dvw"
+      height="100dvh"
       alignItems="center"
       justifyContent="center"
     >
