@@ -4,6 +4,7 @@ import ThemeProvider from "@mui/material/styles/ThemeProvider";
 import { theme } from "./theme";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 const queryClient = new QueryClient();
+import "animate.css";
 
 function App() {
   return (

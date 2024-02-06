@@ -19,6 +19,8 @@ const initializeInternalization = ({ leng }: Props) => {
             "previous-step": "Previous",
             "send-responses": "Send responses",
             close: "Close",
+            "nps-low": "Never would",
+            "nps-high": "Extremely likely",
           },
         },
         es: {
@@ -28,6 +30,8 @@ const initializeInternalization = ({ leng }: Props) => {
             "previous-step": "Anterior",
             "send-responses": "Enviar respuestas",
             close: "Cerrar",
+            "nps-low": "Nunca lo haría",
+            "nps-high": "Extremadamente probable",
           },
         },
       },

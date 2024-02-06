@@ -89,6 +89,7 @@ const theme = createTheme({
         },
         outlined: {
           borderRadius: "8px",
+          backgroundColor: "rgb(80, 72, 229, 0.08)",
         },
       },
     },

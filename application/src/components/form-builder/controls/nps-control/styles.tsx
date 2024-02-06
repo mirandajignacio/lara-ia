@@ -8,6 +8,8 @@ const NPSButton = styled(Button)<{ selected?: boolean }>`
   ${({ theme, selected }) =>
     !selected && `color: ${theme.palette.text.primary};`}
   ${({ theme }) => theme.breakpoints.down("lg")} {
+    min-height: auto;
+    min-width: auto;
     padding: 0;
     width: 50px;
     height: 50px;

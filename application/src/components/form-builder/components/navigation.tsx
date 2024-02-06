@@ -4,7 +4,7 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { useWizard } from "react-use-wizard";
 import { useFormBuilder } from "../hooks/use-form-builder";
 import { t } from "i18next";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const NavigationButton = styled(Button)`
   height: 56px;
@@ -34,7 +34,8 @@ const Container = styled(Box)`
   }
 `;
 
-const SubmitButton = styled(NavigationButton)`
+const SubmitButton = styled(NavigationButton)<{ shake: boolean }>`
+  ${({ shake }) => shake && "animation: shakeY 1s;"}
   ${({ theme }) => theme.breakpoints.up("lg")} {
     display: none;
   }
@@ -52,12 +53,24 @@ const Navigation = () => {
   const { isControlCompleted } = useFormBuilder();
   const controlCompleted = isControlCompleted();
   const isLastQuestionControl = activeStep == stepCount - 2;
+  const [shake, setShake] = useState(false);
 
+  const remarkSubmitButton = () => {
+    setShake(true);
+    setTimeout(() => {
+      setShake(false);
+    }, 2000);
+  };
   useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+
     function handleKeyPress(event: KeyboardEvent) {
       if (event.key === "Enter") {
-        if (controlCompleted) {
+        if (controlCompleted && !isLastQuestionControl) {
           nextStep();
+        }
+        if (isLastQuestionControl && controlCompleted) {
+          remarkSubmitButton();
         }
       }
     }
@@ -67,7 +80,7 @@ const Navigation = () => {
     return () => {
       document.removeEventListener("keydown", handleKeyPress);
     };
-  }, [controlCompleted, nextStep]);
+  }, [controlCompleted, isLastQuestionControl, nextStep]);
 
   return isFirstStep || isLastStep ? null : (
     <Container>
@@ -89,7 +102,12 @@ const Navigation = () => {
         </NavigationButton>
       ) : null}
       {isLastQuestionControl ? (
-        <SubmitButton size="large" variant="contained" onClick={nextStep}>
+        <SubmitButton
+          size="large"
+          variant="contained"
+          onClick={nextStep}
+          shake={shake}
+        >
           {t("send-responses")}
         </SubmitButton>
       ) : null}

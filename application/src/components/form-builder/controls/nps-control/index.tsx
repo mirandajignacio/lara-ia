@@ -16,6 +16,7 @@ import {
 } from "./styles";
 import { SubControl } from "../../components/sub-control";
 import { renderControl } from "../../utils/render-control";
+import { t } from "i18next";
 
 type Props = {
   control: ControlProps;
@@ -73,10 +74,10 @@ const NPSControl = ({ control }: Props) => {
           </ButtonsWrapper>
           <InformationWrapper>
             <Typography variant={lessThanLarge ? "body1" : "h5"}>
-              Núnca lo haría
+              {t("nps-low")}
             </Typography>
             <Typography variant={lessThanLarge ? "body1" : "h5"}>
-              Extremadamente probable
+              {t("nps-high")}
             </Typography>
           </InformationWrapper>
         </OptionsWrapper>
