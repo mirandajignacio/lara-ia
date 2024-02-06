@@ -3,6 +3,7 @@ import { useWizard } from "react-use-wizard";
 import { useFormBuilder } from "../hooks/use-form-builder";
 import { t } from "i18next";
 import { useMutationQuarterCheck } from "../../../api/quarter-check.api";
+import { useEffect } from "react";
 
 type Props = {
   children: React.ReactNode;
@@ -42,6 +43,10 @@ const ControlContainer = ({ children }: Props) => {
       }
     }
   });
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  }, []);
 
   return (
     <Container id="control-container">

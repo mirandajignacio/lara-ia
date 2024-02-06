@@ -21,6 +21,13 @@ const Container = styled(Box)`
   right: 30px;
   bottom: 30px;
   ${({ theme }) => theme.breakpoints.down("lg")} {
+    right: auto;
+    bottom: auto;
+    position: relative;
+    margin-top: auto;
+    margin-right: 32px;
+    margin-bottom: 32px;
+    align-self: flex-end;
     .label {
       display: none;
     }

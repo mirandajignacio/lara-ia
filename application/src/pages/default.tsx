@@ -1,8 +1,19 @@
-import { Box } from "@mui/material";
+import { Box, styled } from "@mui/material";
 
 import { FormBuilder } from "../components/form-builder";
 import { initializeInternalization } from "../i18n";
 import { useQuarterCheck } from "../api/quarter-check.api";
+const Container = styled(Box)`
+  display: flex;
+  width: 100dvw;
+  height: 100dvh;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  ${({ theme }) => theme.breakpoints.down("lg")} {
+    min-height: 100dvh;
+  }
+`;
 
 const Default = () => {
   const { data, isLoading, error } = useQuarterCheck();
@@ -26,15 +37,9 @@ const Default = () => {
   initializeInternalization({ leng: lenguage });
 
   return (
-    <Box
-      display="flex"
-      width="100dvw"
-      height="100dvh"
-      alignItems="center"
-      justifyContent="center"
-    >
+    <Container>
       <FormBuilder controls={controls} />
-    </Box>
+    </Container>
   );
 };
 

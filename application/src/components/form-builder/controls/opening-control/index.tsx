@@ -24,9 +24,8 @@ const OpeningControl = ({ control }: Props) => {
   return (
     <ControlContainer>
       <>
-        <Box>
-          <OpeningClosingText>{question}</OpeningClosingText>
-        </Box>
+        <OpeningClosingText>{question}</OpeningClosingText>
+
         <Box
           display="flex"
           flexDirection={"column"}
