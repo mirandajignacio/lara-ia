@@ -1,5 +1,5 @@
 import { Typography, useMediaQuery, useTheme } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useWizard } from "react-use-wizard";
 
 import { getMood } from "./utils";
@@ -32,24 +32,36 @@ const NPSControl = ({ control }: Props) => {
   const subControl =
     "sub-control" in control ? control["sub-control"] : undefined;
 
+  const selectOption = useCallback(
+    (value: string) => {
+      setSelected(value);
+      addAnswer({ uid, question, answer: value.toString() });
+      const mood = getMood(Number(value));
+      if (subControl === undefined || mood !== subControl.conditional) {
+        setTimeout(() => {
+          nextStep();
+        }, 500);
+      }
+    },
+    [addAnswer, nextStep, question, subControl, uid]
+  );
+
   useEffect(() => {
     initializeControl(control);
     const index = answers.findIndex((a) => a.uid === uid);
     if (index !== -1) {
       setSelected(answers[index].answer.toString());
     }
-  }, [control, initializeControl, answers, uid]);
-
-  const handleOnClickOption = (value: string) => {
-    setSelected(value);
-    addAnswer({ uid, question, answer: value.toString() });
-    const mood = getMood(Number(value));
-    if (subControl === undefined || mood !== subControl.conditional) {
-      setTimeout(() => {
-        nextStep();
-      }, 500);
+    function keyPress(e: KeyboardEvent) {
+      if (!isNaN(Number(e.key))) {
+        selectOption(e.key === "0" ? "10" : e.key);
+      }
     }
-  };
+    addEventListener("keypress", keyPress);
+    return () => {
+      removeEventListener("keypress", keyPress);
+    };
+  }, [control, initializeControl, answers, uid, selectOption]);
 
   return (
     <ControlContainer>
@@ -63,7 +75,7 @@ const NPSControl = ({ control }: Props) => {
                 <NPSButton
                   key={option.key}
                   size="large"
-                  onClick={() => handleOnClickOption(option.value)}
+                  onClick={() => selectOption(option.value)}
                   selected={isSelected}
                   variant={isSelected ? "contained" : "outlined"}
                 >
