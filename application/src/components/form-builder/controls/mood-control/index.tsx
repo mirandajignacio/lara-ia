@@ -1,11 +1,4 @@
-import {
-  Box,
-  Button,
-  Typography,
-  styled,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
+import { Typography, useMediaQuery, useTheme } from "@mui/material";
 
 import { useEffect, useState } from "react";
 
@@ -18,23 +11,8 @@ import { MoodOption, Props } from "./types";
 import { getMood } from "./utils";
 import { moodOptions } from "./data";
 import { QuestionText } from "../../components/question-text";
-
-const MoodButtonsWrapper = styled(Box)`
-  display: flex;
-  gap: 12px;
-  ${({ theme }) => theme.breakpoints.down("lg")} {
-    flex-direction: column;
-  }
-`;
-
-const MoodButton = styled(Button)<{ selected?: boolean }>`
-  height: 104px;
-  width: 99px;
-  ${({ theme }) => theme.breakpoints.down("lg")} {
-    width: 60px;
-    height: 60px;
-  }
-`;
+import { MoodButton, MoodButtonsWrapper } from "./styles";
+import { SubControl } from "../../components/sub-control";
 
 const MoodControl = ({ control }: Props) => {
   const { question, uid, required } = control;
@@ -93,9 +71,9 @@ const MoodControl = ({ control }: Props) => {
         </MoodButtonsWrapper>
         {subControl &&
         selected &&
-        getMood(selected.value) === subControl.conditional
-          ? renderControl(subControl.control)
-          : null}
+        getMood(selected.value) === subControl.conditional ? (
+          <SubControl>{renderControl(subControl.control)}</SubControl>
+        ) : null}
       </>
     </ControlContainer>
   );

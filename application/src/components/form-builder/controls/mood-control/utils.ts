@@ -2,7 +2,7 @@ const getMood = (value: string) => {
   if (value === "2") {
     return "neutral";
   }
-  if (value === "1" || value === "0") {
+  if (value === "3" || value === "4") {
     return "negative";
   }
   return "positive";

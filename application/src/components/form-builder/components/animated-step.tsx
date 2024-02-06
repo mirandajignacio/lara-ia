@@ -26,7 +26,7 @@ const variants: Variants = {
 
 const Content = styled(Box)`
   ${({ theme }) => theme.breakpoints.down("lg")} {
-    padding: 32px 32px 106px 32px;
+    padding: 32px;
   }
 `;
 

@@ -8,6 +8,7 @@ import { getMood } from "./utils";
 import { OptionControlProps } from "./types";
 import { QuestionText } from "../../components/question-text";
 import { OptionButton } from "./option-button";
+import { SubControl } from "../../components/sub-control";
 
 type Props = {
   control: OptionControlProps;
@@ -33,6 +34,7 @@ const OptionsControl = ({ control }: Props) => {
     setSelected(value);
     addAnswer({ uid, question, answer: value.toString() });
     const mood = getMood(value, options);
+
     if (subControl === undefined || mood !== subControl.conditional) {
       setTimeout(() => {
         nextStep();
@@ -68,9 +70,9 @@ const OptionsControl = ({ control }: Props) => {
         </Box>
         {subControl &&
         selected &&
-        getMood(selected, options) === subControl.conditional
-          ? renderControl(subControl.control)
-          : null}
+        getMood(selected, options) === subControl.conditional ? (
+          <SubControl>{renderControl(subControl.control)}</SubControl>
+        ) : null}
       </>
     </ControlContainer>
   );

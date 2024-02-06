@@ -14,6 +14,8 @@ import {
   NPSButton,
   InformationWrapper,
 } from "./styles";
+import { SubControl } from "../../components/sub-control";
+import { renderControl } from "../../utils/render-control";
 
 type Props = {
   control: ControlProps;
@@ -78,6 +80,11 @@ const NPSControl = ({ control }: Props) => {
             </Typography>
           </InformationWrapper>
         </OptionsWrapper>
+        {subControl &&
+        selected &&
+        getMood(Number(selected)) === subControl.conditional ? (
+          <SubControl>{renderControl(subControl.control)}</SubControl>
+        ) : null}
       </>
     </ControlContainer>
   );

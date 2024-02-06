@@ -12,6 +12,7 @@ const Container = styled(Box)`
   flex-direction: column;
   ${({ theme }) => theme.breakpoints.down("lg")} {
     min-height: 100dvh;
+    height: fit-content;
   }
 `;
 

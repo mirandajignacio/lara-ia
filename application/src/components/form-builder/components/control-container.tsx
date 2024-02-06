@@ -54,7 +54,6 @@ const ControlContainer = ({ children }: Props) => {
         display="flex"
         flexDirection="column"
         justifyContent="center"
-        alignItems="baseline"
         gap="30px"
         maxWidth="1000px"
         width="100%"
