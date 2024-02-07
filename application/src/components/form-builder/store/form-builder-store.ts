@@ -8,8 +8,6 @@ type Answer = {
 };
 
 interface State {
-  controls: ControlProps[] | null;
-  setControls: (controls: ControlProps[]) => void;
   getCurrentControl: () => ControlProps | null;
   currentControl: ControlProps | null;
   setCurrentControl: (control: ControlProps) => void;
@@ -21,10 +19,6 @@ interface State {
 
 const useFormBuilderState = create<State>()((set, get) => ({
   controls: [],
-  setControls: (controls) =>
-    set((state) => {
-      return { ...state, controls };
-    }),
   currentControl: null,
   setCurrentControl: (control) =>
     set((state) => {

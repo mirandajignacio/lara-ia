@@ -16,9 +16,9 @@ export const fetchQuarterCheck = async () => {
   if (!res.ok) {
     throw new Error("Network response was not ok");
   }
-  const data = await res.json();
-  const form: FormBuilderSettings = data;
-  return form;
+  const data: FormBuilderSettings = await res.json();
+
+  return data;
 };
 
 export const saveQuarterCheck = async (data: Answer[]) => {

@@ -21,12 +21,17 @@ yarn dev
 - Opening Control
 - Closing Control 
 
-**Aclaración**: Hice que el opening text y closing text sean un control también, ya que limitaba a que haya solo un step de presentación o cierre de flujo. Considero que puede existir el caso donde puede haber mas de un step de presentación o cierre. 
+**Aclaraciónes**: 
+Hice que el opening text y closing text sean un control también, ya que limitaba a que haya solo un step de presentación o cierre de flujo. Considero que puede existir el caso donde puede haber mas de un step de presentación o cierre. 
+
+Justifiqué algunos componentes hacia la izquierda ya que sentía que con solo una parte centrada quedaban.
 
 ### Keypress Support
 - Nps Control
 
-### Esquema Api
+## API
+
+Types: `application/src/api/quarter-check.api.ts`
 
 Endpoints
 
@@ -120,12 +125,25 @@ Body
 }
 ```
 
-#### ControlContainer
-Este Componente lo hice para contener cada control y poder entender por cual es si tiene que mostrar o no el botón de enviar respuestas.
+Response
 
-#### useFormBuilder
-El Hook que se conecta al Context del Form.
-la prop currentControl fue algo que tuve que agregar para poder desde el Navigation saber si tengo que habilitar o no el botón de Siguiente.
+```js
+{
+  message: string;
+}
+```
+
+## Stores
+Global Store
+`application/src/store/global-store.ts`
+
+Form Store
+`application/src/components/form-builder/store/form-builder-store.ts`
+
+
+
+#### ControlContainer
+Wrappea cada control y agregar los listeners de teclado para cada control.
 
 
 #### Mock 
@@ -133,6 +151,9 @@ Si quisieran cambiar el schema del form podrian usar de ejemeplo el que se encue
 `backend/pages/api/quarter-check.ts`
 y harcodearlo como respuestas de `saveQuarterCheck` en 
 `application/src/api/quarter-check.api.ts`
+
+
+### AP
 
 
 

@@ -37,7 +37,7 @@ const OptionsWrapper = styled(Box)`
   display: flex;
   flex-direction: column;
   margin: 0;
-  align-self: center;
+  width: fit-content;
   ${({ theme }) => theme.breakpoints.down("lg")} {
     flex-direction: column-reverse;
     align-self: flex-start;
@@ -48,7 +48,6 @@ const ButtonsWrapper = styled(Box)`
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
-  justify-content: start;
   ${({ theme }) => theme.breakpoints.down("lg")} {
     gap: 5px;
   }

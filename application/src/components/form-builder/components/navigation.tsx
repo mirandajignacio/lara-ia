@@ -62,9 +62,8 @@ const Navigation = () => {
       setShake(false);
     }, 2000);
   };
-  useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
 
+  useEffect(() => {
     function handleKeyPress(event: KeyboardEvent) {
       if (event.key === "Enter") {
         if (controlReady && !isLastQuestionControl) {
