@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useWizard } from "react-use-wizard";
 import { getMood } from "./utils";
 import { ControlProps } from "../types";
@@ -29,7 +29,7 @@ const NPSControl = ({ control }: Props) => {
   const { nextStep } = useWizard();
   const { getAnswer, saveAnswer } = useFormBuilderState();
   const { showToast } = useGlobalStore();
-
+  const textFieldRef = useRef<HTMLInputElement>(null);
   const subControl =
     "sub-control" in control ? control["sub-control"] : undefined;
 
@@ -48,6 +48,9 @@ const NPSControl = ({ control }: Props) => {
 
   useEffect(() => {
     showToast(t("nps-tip"));
+  }, [showToast]);
+
+  useEffect(() => {
     const answer = getAnswer(uid);
     if (answer) {
       const nps = npsOptions.find((option) => option.value === answer);
@@ -102,7 +105,9 @@ const NPSControl = ({ control }: Props) => {
       {subControl &&
       selected &&
       getMood(Number(selected)) === subControl.conditional ? (
-        <SubControl>{renderControl(subControl.control)}</SubControl>
+        <SubControl>
+          {renderControl(subControl.control, textFieldRef)}
+        </SubControl>
       ) : null}
     </>
   );

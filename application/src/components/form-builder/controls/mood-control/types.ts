@@ -8,6 +8,7 @@ type MoodOption = {
   uid: string;
   label: string;
   value: string;
+  keypress: string;
 };
 
 export type { Props, MoodOption };
