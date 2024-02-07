@@ -21,9 +21,9 @@ const Container = styled(Box)`
   width: 100%;
 `;
 
-const SubmitWrapper = styled(Box)<{ shake?: boolean }>`
+const SubmitWrapper = styled(Box)<{ shake?: string }>`
   align-self: self-start;
-  ${({ shake }) => shake && "animation: bounceIn 0.5s;"}
+  ${({ shake }) => shake === "true" && "animation: bounceIn 0.5s;"}
   ${({ theme }) => theme.breakpoints.down("lg")} {
     display: none;
   }
@@ -100,7 +100,7 @@ const ControlContainer = ({ control }: Props) => {
         {renderControl(control)}
       </Box>
       {isLastQuestionControl ? (
-        <SubmitWrapper shake={shake}>
+        <SubmitWrapper shake={String(shake)}>
           <Button
             size="large"
             variant="contained"

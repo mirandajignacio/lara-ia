@@ -1,4 +1,4 @@
-import { Box, Button, styled } from "@mui/material";
+import { Box, Button, Typography, styled } from "@mui/material";
 
 const MoodButtonsWrapper = styled(Box)`
   display: flex;
@@ -11,6 +11,7 @@ const MoodButtonsWrapper = styled(Box)`
 const MoodButton = styled(Button)<{ selected?: boolean }>`
   height: 104px;
   width: fit-content;
+  position: relative;
   font-size: 56px;
   ${({ selected }) => selected && "animation: flash 0.5s;"}
   ${({ theme }) => theme.breakpoints.down("lg")} {
@@ -20,4 +21,13 @@ const MoodButton = styled(Button)<{ selected?: boolean }>`
   }
 `;
 
-export { MoodButtonsWrapper, MoodButton };
+const KeypressLabel = styled(Typography)`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 24px;
+  height: 24px;
+  font-weight: 600;
+`;
+
+export { MoodButtonsWrapper, MoodButton, KeypressLabel };

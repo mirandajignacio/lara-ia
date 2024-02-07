@@ -1,3 +1,4 @@
+import { RefObject } from "react";
 import { ClosingControl } from "../controls/closing-control";
 import { MoodControl } from "../controls/mood-control";
 import { NPSControl } from "../controls/nps-control";
@@ -8,7 +9,10 @@ import { OptionControlProps } from "../controls/option-control/types";
 import { TextControl } from "../controls/text-control";
 import { ControlBaseProps, ControlProps } from "../controls/types";
 
-const renderControl = (control: ControlProps) => {
+const renderControl = (
+  control: ControlProps,
+  ref?: RefObject<HTMLInputElement>
+) => {
   const { "control-type": controlType } = control;
   switch (controlType) {
     case "opening":
@@ -35,7 +39,11 @@ const renderControl = (control: ControlProps) => {
       );
     case "text":
       return (
-        <TextControl key={control.uid} control={control as ControlBaseProps} />
+        <TextControl
+          key={control.uid}
+          control={control as ControlBaseProps}
+          ref={ref}
+        />
       );
     case "closing":
       return (

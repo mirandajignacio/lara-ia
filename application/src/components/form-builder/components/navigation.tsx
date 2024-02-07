@@ -35,8 +35,8 @@ const Container = styled(Box)`
   }
 `;
 
-const SubmitButton = styled(NavigationButton)<{ shake: boolean }>`
-  ${({ shake }) => shake && "animation: bounceIn 1s;"}
+const SubmitButton = styled(NavigationButton)<{ shake: string }>`
+  ${({ shake }) => shake === "true" && "animation: bounceIn 1s;"}
   ${({ theme }) => theme.breakpoints.up("lg")} {
     display: none;
   }
@@ -106,7 +106,8 @@ const Navigation = () => {
           size="large"
           variant="contained"
           onClick={nextStep}
-          shake={shake}
+          shake={String(shake)}
+          // {...(shake ? { shake: shake } : {})}
         >
           {t("send-responses")}
         </SubmitButton>

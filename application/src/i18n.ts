@@ -23,6 +23,7 @@ const initializeInternalization = ({ leng }: Props) => {
             "nps-high": "Extremely likely",
             "nps-tip":
               "💡 Tip! Try using the keyboard to select an option! Press 0 for 10.",
+            "mood-tip": "💡 Tip! Try using the keyboard to select a Mood!",
             "submit-remark":
               "Ready to submit! Click 'Send responses' to finish.",
           },
@@ -38,6 +39,8 @@ const initializeInternalization = ({ leng }: Props) => {
             "nps-high": "Extremadamente probable",
             "nps-tip":
               "💡 Tip! Intentá usar el teclado para seleccionar una opción! Presiona 0 para 10.",
+            "mood-tip":
+              "💡 Tip! Intentá usar el teclado para seleccionar una opción!",
             "submit-remark":
               "¡Listo para enviar! Haz clic en 'Enviar respuestas' para terminar.",
           },
