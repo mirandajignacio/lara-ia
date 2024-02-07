@@ -10,4 +10,4 @@ type OptionControlProps = ControlBaseProps & {
   options: Option[];
 };
 
-export type { OptionControlProps };
+export type { OptionControlProps, Option };

@@ -1,12 +1,14 @@
 import { Box, Button, styled } from "@mui/material";
 import { useWizard } from "react-use-wizard";
-import { useFormBuilder } from "../hooks/use-form-builder";
 import { t } from "i18next";
 import { useMutationQuarterCheck } from "../../../api/quarter-check.api";
 import { useEffect, useState } from "react";
+import { ControlProps } from "../controls/types";
+import { renderControl } from "../utils/render-control";
+import { useFormBuilderState } from "../store/form-builder-store";
 
 type Props = {
-  children: React.ReactNode;
+  control: ControlProps;
 };
 
 const Container = styled(Box)`
@@ -21,23 +23,20 @@ const Container = styled(Box)`
 const SubmitWrapper = styled(Box)<{ shake?: boolean }>`
   display: flex;
   width: 100%;
-  margin-top: 30px;
-  justify-content: flex-end;
-
-  ${({ shake }) => shake && "animation: shakeX 1s;"}
+  justify-content: flex-start;
+  ${({ shake }) => shake && "animation: bounce 1s;"}
   ${({ theme }) => theme.breakpoints.down("lg")} {
     display: none;
   }
 `;
 
-const ControlContainer = ({ children }: Props) => {
+const ControlContainer = ({ control }: Props) => {
   const { stepCount, activeStep, nextStep, handleStep } = useWizard();
-  const { answers } = useFormBuilder();
   const [shake, setShake] = useState(false);
   const isLastQuestionControl = activeStep == stepCount - 2;
   const { isPending, isSuccess, mutate } = useMutationQuarterCheck();
-  const { isControlCompleted } = useFormBuilder();
-  const controlCompleted = isControlCompleted();
+  const { setCurrentControl, isControlReady, answers } = useFormBuilderState();
+  const controlReady = isControlReady();
 
   const remarkSubmitButton = () => {
     setShake(true);
@@ -48,13 +47,13 @@ const ControlContainer = ({ children }: Props) => {
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-
+    setCurrentControl(control);
     function handleKeyPress(event: KeyboardEvent) {
       if (event.key === "Enter") {
-        if (controlCompleted && !isLastQuestionControl) {
+        if (controlReady && !isLastQuestionControl) {
           nextStep();
         }
-        if (isLastQuestionControl && controlCompleted) {
+        if (isLastQuestionControl && controlReady) {
           remarkSubmitButton();
         }
       }
@@ -65,11 +64,17 @@ const ControlContainer = ({ children }: Props) => {
     return () => {
       document.removeEventListener("keydown", handleKeyPress);
     };
-  }, [controlCompleted, isLastQuestionControl, nextStep]);
+  }, [
+    control,
+    controlReady,
+    isLastQuestionControl,
+    nextStep,
+    setCurrentControl,
+  ]);
 
   handleStep(() => {
     if (isLastQuestionControl) {
-      mutate(answers);
+      mutate(answers!);
 
       if (!isPending && isSuccess) {
         nextStep();
@@ -78,7 +83,7 @@ const ControlContainer = ({ children }: Props) => {
   });
 
   const handleOnClickSubmit = () => {
-    if (isLastQuestionControl && isControlCompleted()) {
+    if (isLastQuestionControl && controlReady) {
       nextStep();
     }
   };
@@ -93,7 +98,7 @@ const ControlContainer = ({ children }: Props) => {
         maxWidth="1000px"
         width="100%"
       >
-        {children}
+        {renderControl(control)}
       </Box>
       {isLastQuestionControl ? (
         <SubmitWrapper shake={shake}>

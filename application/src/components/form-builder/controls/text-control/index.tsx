@@ -1,11 +1,8 @@
 import { TextField } from "@mui/material";
-
 import { ChangeEvent, useEffect, useState } from "react";
-
 import { ControlProps } from "../types";
-import { useFormBuilder } from "../../hooks/use-form-builder";
-import { ControlContainer } from "../../components/control-container";
 import { QuestionText } from "../../components/question-text";
+import { useFormBuilderState } from "../../store/form-builder-store";
 
 type Props = {
   control: ControlProps;
@@ -13,36 +10,33 @@ type Props = {
 
 const TextControl = ({ control }: Props) => {
   const { question, required, uid } = control;
-  const [answer, setAnswer] = useState("");
-  const { initializeControl, answers, addAnswer } = useFormBuilder();
+  const { getAnswer, saveAnswer } = useFormBuilderState();
+  const [text, setText] = useState("");
 
   useEffect(() => {
-    initializeControl(control);
-    const index = answers.findIndex((a) => a.uid === uid);
-    if (index !== -1) {
-      setAnswer(answers[index].answer);
+    const answer = getAnswer(uid);
+    if (answer) {
+      setText(answer);
     }
-  }, [control, initializeControl, answers, uid]);
+  }, [getAnswer, uid]);
 
   const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setAnswer(e.target.value);
-    addAnswer({ uid, question, answer: e.target.value });
+    setText(e.target.value);
+    saveAnswer({ uid, question, answer: e.target.value });
   };
 
   return (
-    <ControlContainer>
-      <>
-        <QuestionText>{question}</QuestionText>
-        <TextField
-          required={required}
-          fullWidth
-          multiline
-          variant="outlined"
-          value={answer}
-          onChange={handleOnChange}
-        />
-      </>
-    </ControlContainer>
+    <>
+      <QuestionText>{question}</QuestionText>
+      <TextField
+        required={required}
+        fullWidth
+        multiline
+        variant="outlined"
+        value={text}
+        onChange={handleOnChange}
+      />
+    </>
   );
 };
 

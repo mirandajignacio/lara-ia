@@ -1,11 +1,11 @@
 import { create } from "zustand";
 
-interface BearState {
+interface GlobalState {
   toast: string | null;
   showToast: (text: string) => void;
 }
 
-const useGlobalStore = create<BearState>()((set) => ({
+const useGlobalStore = create<GlobalState>()((set) => ({
   toast: null,
   showToast: (text) =>
     set((state) => {
