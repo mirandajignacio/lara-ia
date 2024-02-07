@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { LenguageType } from "../common/types";
 import { ControlProps } from "../components/form-builder/controls/types";
-import { Answer } from "../components/form-builder/context/form-builder-context";
+import { Answer } from "../components/form-builder/store/form-builder-store";
 
 type FormBuilderSettings = {
   uid: string;

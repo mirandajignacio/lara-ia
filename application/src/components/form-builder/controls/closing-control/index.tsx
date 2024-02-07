@@ -1,4 +1,3 @@
-import { ControlContainer } from "../../components/control-container";
 import { ControlProps } from "../types";
 
 import { OpeningClosingText } from "../../components/opening-closing-text";
@@ -11,9 +10,9 @@ const ClosingControl = ({ control }: Props) => {
   const { question } = control;
 
   return (
-    <ControlContainer>
-      <OpeningClosingText>{question}</OpeningClosingText>
-    </ControlContainer>
+    // <ControlContainer>
+    <OpeningClosingText>{question}</OpeningClosingText>
+    //  </ControlContainer> */
   );
 };
 

@@ -2,7 +2,6 @@ import { Box } from "@mui/material";
 import { useWizard } from "react-use-wizard";
 import { useTranslation } from "react-i18next";
 import { OpeningControlProps } from "./types";
-import { ControlContainer } from "../../components/control-container";
 
 import { ContextButton } from "./context-button";
 import { OpeningClosingText } from "../../components/opening-closing-text";
@@ -17,32 +16,32 @@ const OpeningControl = ({ control }: Props) => {
   const { question, context } = control;
   const { t } = useTranslation();
   return (
-    <ControlContainer>
-      <>
-        <OpeningClosingText>{question}</OpeningClosingText>
+    // <ControlContainer>
+    <>
+      <OpeningClosingText>{question}</OpeningClosingText>
 
-        <Box
-          display="flex"
-          flexDirection={"column"}
-          alignItems={"center"}
-          alignSelf={"center"}
+      <Box
+        display="flex"
+        flexDirection={"column"}
+        alignItems={"center"}
+        alignSelf={"center"}
+      >
+        <StartButton
+          variant="contained"
+          color="primary"
+          onClick={nextStep}
+          size="large"
         >
-          <StartButton
-            variant="contained"
-            color="primary"
-            onClick={nextStep}
-            size="large"
-          >
-            {t("start")}
-          </StartButton>
-          <ContextButtonWrapper>
-            {context?.map((c) => (
-              <ContextButton key={c.uid} {...c} />
-            ))}
-          </ContextButtonWrapper>
-        </Box>
-      </>
-    </ControlContainer>
+          {t("start")}
+        </StartButton>
+        <ContextButtonWrapper>
+          {context?.map((c) => (
+            <ContextButton key={c.uid} {...c} />
+          ))}
+        </ContextButtonWrapper>
+      </Box>
+    </>
+    // </ControlContainer>
   );
 };
 

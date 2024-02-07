@@ -2,9 +2,9 @@ import { Box, Button, styled } from "@mui/material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { useWizard } from "react-use-wizard";
-import { useFormBuilder } from "../hooks/use-form-builder";
 import { t } from "i18next";
 import { useEffect, useState } from "react";
+import { useFormBuilderState } from "../store/form-builder-store";
 
 const NavigationButton = styled(Button)`
   gap: 8px;
@@ -36,7 +36,7 @@ const Container = styled(Box)`
 `;
 
 const SubmitButton = styled(NavigationButton)<{ shake: boolean }>`
-  ${({ shake }) => shake && "animation: shakeY 1s;"}
+  ${({ shake }) => shake && "animation: bounceIn 1s;"}
   ${({ theme }) => theme.breakpoints.up("lg")} {
     display: none;
   }
@@ -51,11 +51,11 @@ const Navigation = () => {
     isLastStep,
     activeStep,
   } = useWizard();
-  const { isControlCompleted } = useFormBuilder();
-  const controlCompleted = isControlCompleted();
+
   const isLastQuestionControl = activeStep == stepCount - 2;
   const [shake, setShake] = useState(false);
-
+  const { isControlReady } = useFormBuilderState();
+  const controlReady = isControlReady();
   const remarkSubmitButton = () => {
     setShake(true);
     setTimeout(() => {
@@ -67,10 +67,10 @@ const Navigation = () => {
 
     function handleKeyPress(event: KeyboardEvent) {
       if (event.key === "Enter") {
-        if (controlCompleted && !isLastQuestionControl) {
+        if (controlReady && !isLastQuestionControl) {
           nextStep();
         }
-        if (isLastQuestionControl && controlCompleted) {
+        if (isLastQuestionControl && controlReady) {
           remarkSubmitButton();
         }
       }
@@ -81,7 +81,7 @@ const Navigation = () => {
     return () => {
       document.removeEventListener("keydown", handleKeyPress);
     };
-  }, [controlCompleted, isLastQuestionControl, nextStep]);
+  }, [controlReady, isLastQuestionControl, nextStep]);
 
   return isFirstStep || isLastStep ? null : (
     <Container>
@@ -96,7 +96,7 @@ const Navigation = () => {
         <NavigationButton
           onClick={nextStep}
           variant="contained"
-          disabled={!controlCompleted}
+          disabled={!controlReady}
           endIcon={<ArrowForwardIosIcon />}
         >
           <p className="label">{t("next-step")}</p>
