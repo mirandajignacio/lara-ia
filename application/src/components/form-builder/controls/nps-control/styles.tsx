@@ -6,6 +6,7 @@ const NPSButton = styled(Button)<{ selected?: boolean }>`
   height: 70px;
   padding: 0;
   font-weight: 400;
+  ${({ selected }) => selected && "animation: flash 0.5s;"}
   ${({ theme, selected }) =>
     !selected && `color: ${theme.palette.text.primary};`}
   ${({ theme }) => theme.breakpoints.down("lg")} {

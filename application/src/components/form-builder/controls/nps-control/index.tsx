@@ -17,6 +17,7 @@ import { t } from "i18next";
 import { useGlobalStore } from "../../../../store/global-store";
 import { NPSOption } from "./types";
 import { useFormBuilderState } from "../../store/form-builder-store";
+import { withDelay } from "../../../../utils";
 
 type Props = {
   control: ControlProps;
@@ -39,7 +40,7 @@ const NPSControl = ({ control }: Props) => {
       saveAnswer({ uid, question, answer: option!.value });
       const mood = getMood(Number(option?.value));
       if (subControl === undefined || mood !== subControl.conditional) {
-        nextStep();
+        withDelay(nextStep, 500);
       }
     },
     [nextStep, question, saveAnswer, subControl, uid]
@@ -62,14 +63,14 @@ const NPSControl = ({ control }: Props) => {
     return () => {
       removeEventListener("keypress", keyPress);
     };
-  }, [getAnswer, onKeyPress, showToast]);
+  }, [getAnswer, onKeyPress, showToast, uid]);
 
   const handleOnClickOption = (option: NPSOption) => {
     setSelected(option);
     saveAnswer({ uid, question, answer: option.value });
     const mood = getMood(Number(option.value));
     if (subControl === undefined || mood !== subControl.conditional) {
-      nextStep();
+      withDelay(nextStep, 500);
     }
   };
 

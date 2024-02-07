@@ -1,5 +1,4 @@
 import { Wizard } from "react-use-wizard";
-import { Toaster } from "react-hot-toast";
 import { Navigation } from "./components/navigation";
 import { AnimatedStep } from "./components/animated-step";
 import { useRef } from "react";
@@ -25,7 +24,6 @@ const FormBuilder = ({ controls }: Props) => {
           );
         })}
       </Wizard>
-      <Toaster position="bottom-center" />
     </>
   );
 };

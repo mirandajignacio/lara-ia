@@ -8,6 +8,7 @@ import { QuestionText } from "../../components/question-text";
 import { OptionButton } from "./option-button";
 import { SubControl } from "../../components/sub-control";
 import { useFormBuilderState } from "../../store/form-builder-store";
+import { withDelay } from "../../../../utils";
 
 type Props = {
   control: OptionControlProps;
@@ -28,7 +29,7 @@ const OptionsControl = ({ control }: Props) => {
       const option = options.find((option) => option.label === answer);
       setSelected(option!);
     }
-  }, [getAnswer, options]);
+  }, [getAnswer, options, uid]);
 
   const handleOnClickOption = (option: Option) => {
     setSelected(option);
@@ -36,7 +37,7 @@ const OptionsControl = ({ control }: Props) => {
     const mood = getMood(option.value, options);
 
     if (subControl === undefined || mood !== subControl.conditional) {
-      nextStep();
+      withDelay(nextStep, 500);
     }
   };
 

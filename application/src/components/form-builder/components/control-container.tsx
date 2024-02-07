@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { ControlProps } from "../controls/types";
 import { renderControl } from "../utils/render-control";
 import { useFormBuilderState } from "../store/form-builder-store";
+import { useGlobalStore } from "../../../store/global-store";
 
 type Props = {
   control: ControlProps;
@@ -21,10 +22,8 @@ const Container = styled(Box)`
 `;
 
 const SubmitWrapper = styled(Box)<{ shake?: boolean }>`
-  display: flex;
-  width: 100%;
-  justify-content: flex-start;
-  ${({ shake }) => shake && "animation: bounce 1s;"}
+  align-self: self-start;
+  ${({ shake }) => shake && "animation: bounceIn 0.5s;"}
   ${({ theme }) => theme.breakpoints.down("lg")} {
     display: none;
   }
@@ -36,25 +35,24 @@ const ControlContainer = ({ control }: Props) => {
   const isLastQuestionControl = activeStep == stepCount - 2;
   const { isPending, isSuccess, mutate } = useMutationQuarterCheck();
   const { setCurrentControl, isControlReady, answers } = useFormBuilderState();
+  const { showToast } = useGlobalStore();
   const controlReady = isControlReady();
-
-  const remarkSubmitButton = () => {
-    setShake(true);
-    setTimeout(() => {
-      setShake(false);
-    }, 2000);
-  };
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     setCurrentControl(control);
+
     function handleKeyPress(event: KeyboardEvent) {
       if (event.key === "Enter") {
         if (controlReady && !isLastQuestionControl) {
           nextStep();
         }
         if (isLastQuestionControl && controlReady) {
-          remarkSubmitButton();
+          showToast(t("submit-remark"));
+          setShake(true);
+          setTimeout(() => {
+            setShake(false);
+          }, 500);
         }
       }
     }
@@ -70,6 +68,7 @@ const ControlContainer = ({ control }: Props) => {
     isLastQuestionControl,
     nextStep,
     setCurrentControl,
+    showToast,
   ]);
 
   handleStep(() => {

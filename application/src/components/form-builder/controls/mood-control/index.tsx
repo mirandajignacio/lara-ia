@@ -8,6 +8,7 @@ import { QuestionText } from "../../components/question-text";
 import { MoodButton, MoodButtonsWrapper } from "./styles";
 import { SubControl } from "../../components/sub-control";
 import { useFormBuilderState } from "../../store/form-builder-store";
+import { withDelay } from "../../../../utils";
 
 const MoodControl = ({ control }: Props) => {
   const { question, uid, required } = control;
@@ -32,7 +33,7 @@ const MoodControl = ({ control }: Props) => {
     saveAnswer({ uid, question, answer: option.label });
     const mood = getMood(option.value);
     if (subControl === undefined || mood !== subControl.conditional) {
-      nextStep();
+      withDelay(nextStep, 500);
     }
   };
 
